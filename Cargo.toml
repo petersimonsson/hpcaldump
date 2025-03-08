@@ -4,3 +4,8 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+clap = { version = "4.5.31", features = ["cargo", "derive"] }
+indicatif = "0.17.11"
+miette = { version = "7.5.0", features = ["fancy"] }
+rusty-gpib = { git = "https://github.com/petersimonsson/rusty-gpib.git", version = "0.1.0" }
+tokio = { version = "1.44.0", features = ["rt-multi-thread", "macros", "fs", "io-util"] }
