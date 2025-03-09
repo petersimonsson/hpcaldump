@@ -6,6 +6,8 @@ use miette::miette;
 #[derive(Debug, Parser)]
 #[command(author, about, version)]
 pub struct Cli {
+    #[arg(short, long, default_value = "0")]
+    pub bord_index: i32,
     #[arg(value_parser(value_parser!(u8).range(0..=30)))]
     pub gpib_address: u8,
     #[command(subcommand)]

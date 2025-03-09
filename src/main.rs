@@ -21,15 +21,31 @@ async fn main() -> miette::Result<()> {
 
     match cli.command {
         cli::CliCommand::A(args) => {
-            read_hp3457_cal_data(0, cli.gpib_address, HP3457_CAL_A_ADDRS, &args.output_file)
-                .await?;
+            read_hp3457_cal_data(
+                cli.bord_index,
+                cli.gpib_address,
+                HP3457_CAL_A_ADDRS,
+                &args.output_file,
+            )
+            .await?;
         }
         cli::CliCommand::B(args) => {
-            read_hp3457_cal_data(0, cli.gpib_address, HP3457_CAL_B_ADDRS, &args.output_file)
-                .await?;
+            read_hp3457_cal_data(
+                cli.bord_index,
+                cli.gpib_address,
+                HP3457_CAL_B_ADDRS,
+                &args.output_file,
+            )
+            .await?;
         }
         cli::CliCommand::Range(args) => {
-            read_hp3457_cal_data(0, cli.gpib_address, args.mem_range()?, &args.output_file).await?;
+            read_hp3457_cal_data(
+                cli.bord_index,
+                cli.gpib_address,
+                args.mem_range()?,
+                &args.output_file,
+            )
+            .await?;
         }
     }
 
