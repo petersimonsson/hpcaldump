@@ -60,15 +60,6 @@ where
     println!("Send 'TRIG 4'");
     device.write(b"TRIG 4").into_diagnostic()?;
 
-    println!("Flush buffer");
-    for addr in 1..11 {
-        let mut buf: [u8; 20] = [0; 20];
-        device
-            .write(format!("PEEK {addr}").as_bytes())
-            .into_diagnostic()?;
-        device.read(&mut buf).into_diagnostic()?;
-    }
-
     println!("Reading data from device");
     let mut len = 0;
     let mut buf: [u8; 16] = [0; 16];
