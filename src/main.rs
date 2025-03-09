@@ -1,4 +1,4 @@
-use std::{ops::Range, path::Path};
+use std::{ops::RangeInclusive, path::Path};
 
 use clap::Parser;
 use cli::Cli;
@@ -12,33 +12,33 @@ use tokio::{
 
 mod cli;
 
-const HP3457_CAL_A_ADDRS: Range<u16> = 64..512;
-const HP3457_CAL_B_ADDRS: Range<u16> = 20480..22528;
+const HP3457_CAL_OLD_ADDRS: RangeInclusive<u16> = 0x0040..=0x01FF;
+const HP3457_CAL_NEW_ADDRS: RangeInclusive<u16> = 0x5000..=0x57FF;
 
 #[tokio::main]
 async fn main() -> miette::Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
-        cli::CliCommand::A(args) => {
+        cli::CliCommand::Old(args) => {
             read_hp3457_cal_data(
                 cli.bord_index,
                 cli.gpib_address,
-                HP3457_CAL_A_ADDRS,
+                HP3457_CAL_OLD_ADDRS,
                 &args.output_file,
             )
             .await?;
         }
-        cli::CliCommand::B(args) => {
+        cli::CliCommand::New(args) => {
             read_hp3457_cal_data(
                 cli.bord_index,
                 cli.gpib_address,
-                HP3457_CAL_B_ADDRS,
+                HP3457_CAL_NEW_ADDRS,
                 &args.output_file,
             )
             .await?;
         }
-        cli::CliCommand::Range(args) => {
+        cli::CliCommand::User(args) => {
             read_hp3457_cal_data(
                 cli.bord_index,
                 cli.gpib_address,
