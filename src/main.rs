@@ -79,7 +79,7 @@ where
         let val = val_str.parse::<f32>().into_diagnostic()? as i32;
         let val = (0x0000ffff & val) as u16;
 
-        len += file.write(&val.to_le_bytes()).await.into_diagnostic()?;
+        len += file.write(&val.to_be_bytes()).await.into_diagnostic()?;
     }
 
     println!("{len} bytes written to disk");
